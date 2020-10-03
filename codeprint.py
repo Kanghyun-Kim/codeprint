@@ -1,13 +1,14 @@
 import re
 
 class Coloring():
-    RED = '\033[31m'
-    GREEN  = '\33[32m'
+    RED = '\033[1;31m'
+    GREEN  = '\33[1;32m'
+    GREENITALIC = '\33[3;32m'
     BLUE   = '\33[34m'
-    VIOLET = '\33[35m'
+    VIOLET = '\33[1;35m'
     BEIGE  = '\33[36m'
     GREY = '\33[90m'
-    YELLOW = '\33[33m'
+    YELLOW = '\33[1;33m'
     END = '\033[0m'
 
     def colored(self, text):
@@ -16,7 +17,7 @@ class Coloring():
         m = p.search(text)
         if m:
             text = m.group(1)
-            comment = self.GREEN + m.group(2) +  self.END
+            comment = self.GREENITALIC + m.group(2) +  self.END
         
         declare_type = re.compile(r'(class|def) (\w+)')
         func_type = re.compile(r'(sum|zip|tuple|list|abs|zip)(\()')
@@ -38,7 +39,7 @@ class Coloring():
         #string coloring
         matches = re.findall(r'([\'\"].+?[\'\"])',output)  # match text between two quotes
         for content in matches:
-            output = output.replace(content, self.YELLOW + content +self.END)
+            output = output.replace(content, self.RED + content +self.END)
 
         if m:
             output = output + comment
